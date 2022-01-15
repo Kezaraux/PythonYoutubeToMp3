@@ -7,12 +7,14 @@ import shutil
 import unidecode
 import urllib.parse
 import youtube_dl as yt
+from yt_dlp import YoutubeDL
 from googletrans import Translator
+
 
 #Constants
 temp_directory = os.getcwd() + "\\temp"
 output_directory = os.getcwd() + "\\output"
-ydl_options = {"outtmpl":  "temp/%(title)s-%(id)s.%(ext)s"}
+ydl_options = {"outtmpl":  "temp/%(title)s-%(id)s.%(ext)s", 'format': 'bestaudio'}
 supported_video_extensions = ["*.mkv", "*.mp4", "*.webm"]
 
 #Problem storage
@@ -40,7 +42,7 @@ def handle_url(url):
 
 def download_video(url):
     print("\tDownloading " + url)
-    with yt.YoutubeDL(ydl_options) as ydl:
+    with YoutubeDL(ydl_options) as ydl:
         ydl.download([url])
 
 def get_video_id(url):
